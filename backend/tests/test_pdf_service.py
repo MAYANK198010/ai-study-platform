@@ -1,4 +1,4 @@
-import fitz
+import pymupdf as fitz
 import pytest
 from app.services.pdf_service import extract_pdf_text
 
