@@ -40,7 +40,7 @@ export default function Home() {
     if (!uploaded) return;
     setBusy(true); setError("");
     try {
-      const response = await fetch(API + "/songs/lyrics", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ title: uploaded.filename.replace(/\\.pdf$/i, ""), source_text: uploaded.text, language, genre }) });
+      const response = await fetch(API + "/songs/lyrics", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ title: uploaded.filename.replace(/\.pdf$/i, ""), source_text: uploaded.text.slice(0, 30000), language, genre }) });
       const data = await response.json();
       if (!response.ok) throw new Error(data.detail || "Lyrics generation failed");
       setLyrics(data);
