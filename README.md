@@ -7,11 +7,12 @@ A modular AI learning platform that turns course PDFs into accurate, multilingua
 - Next.js App Router + TypeScript frontend
 - FastAPI backend
 - PDF text extraction with PyMuPDF
-- Chapter/topic analysis and structured song-lyric generation
+- Basic PDF upload and per-page text extraction
+- Structured educational-lyrics generation from supplied source text
 - OpenAI-compatible LLM adapter (configured server-side)
 - Replaceable music-provider adapter; provider API integration is intentionally isolated
 - Redis/Celery background-job foundation
-- PostgreSQL schema foundation
+- Initial PostgreSQL schema in `backend/app/db/schema.sql`
 - Docker Compose for local infrastructure
 
 > Vocal music generation is provider-gated. Configure a supported music API and verify its current model, region, lyrics, duration, and commercial-use terms before enabling production generation. The app does not claim a music job succeeded unless the provider returns a usable audio asset.
@@ -69,4 +70,4 @@ See `.env.example`. Never commit API keys, credentials, private PDFs, or generat
 
 ## Current status
 
-This is an initial implementation scaffold, not a production-ready platform. Authentication, complete persistence, OCR, end-to-end music-provider integration, deployment, and comprehensive tests remain planned work. See [docs/IMPLEMENTATION_PLAN.md](docs/IMPLEMENTATION_PLAN.md).
+This is an initial implementation scaffold, not a production-ready platform. The current browser flow supports PDF upload, text extraction, and LLM lyric drafting. Chapter segmentation, authentication, database-backed persistence, OCR, background job orchestration, and real music-provider integration remain planned work. The CI workflow runs backend PDF parser tests and a frontend production build when GitHub Actions runners are available. See [docs/IMPLEMENTATION_PLAN.md](docs/IMPLEMENTATION_PLAN.md).
