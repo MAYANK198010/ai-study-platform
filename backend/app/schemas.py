@@ -13,7 +13,7 @@ class LyricsRequest(BaseModel):
 class LyricSection(BaseModel):
     type: Literal["intro", "verse", "chorus", "bridge", "outro"]
     lyrics: str
-    source_concepts: list[str] = []
+    source_concepts: list[str] = Field(default_factory=list)
 
 class LyricsResponse(BaseModel):
     title: str
