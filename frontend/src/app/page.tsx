@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ArrowRight, AudioLines, BookOpen, BrainCircuit, FileUp, Headphones, Languages, Library, LoaderCircle, Music2, Sparkles } from "lucide-react";
 
-const API = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000/api/v1";
+const API = process.env.NEXT_PUBLIC_API_BASE_URL || "";
 const tools = [
   { icon: AudioLines, title: "Study songs", detail: "Turn chapter content into memorable vocal-song lyrics." },
   { icon: BookOpen, title: "Smart notes", detail: "Create structured summaries and exam-ready notes." },
@@ -27,6 +27,7 @@ export default function Home() {
     if (!file) return;
     setBusy(true); setError(""); setLyrics(null);
     try {
+      if (!API) throw new Error("The study API is not connected yet. Configure NEXT_PUBLIC_API_BASE_URL after deploying the backend.");
       const body = new FormData(); body.append("file", file);
       const response = await fetch(API + "/documents", { method: "POST", body });
       const data = await response.json();
@@ -40,6 +41,7 @@ export default function Home() {
     if (!uploaded) return;
     setBusy(true); setError("");
     try {
+      if (!API) throw new Error("The study API is not connected yet. Configure NEXT_PUBLIC_API_BASE_URL after deploying the backend.");
       const response = await fetch(API + "/songs/lyrics", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ title: uploaded.filename.replace(/\.pdf$/i, ""), source_text: uploaded.text.slice(0, 30000), language, genre }) });
       const data = await response.json();
       if (!response.ok) throw new Error(data.detail || "Lyrics generation failed");
