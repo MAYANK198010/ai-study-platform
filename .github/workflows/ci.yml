@@ -17,7 +17,7 @@ jobs:
         working-directory: backend
       - run: python -m compileall -q app
         working-directory: backend
-      - run: pytest -q
+      - run: python -m pytest -q
         working-directory: backend
   frontend:
     runs-on: ubuntu-latest
